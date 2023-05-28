@@ -9,6 +9,9 @@ import {
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 
+import StartScreen from "./components/pages/start";
+import ResultsScreen from "./components/pages/results";
+
 import { NativeWindStyleSheet } from "nativewind";
 
 NativeWindStyleSheet.setOutput({
@@ -121,28 +124,6 @@ const AllQuestions: React.FC<iQuizComponent> = ({
   return <Question question={item} submit={submit} />;
 };
 
-interface iScoreComponent {
-  score: number;
-}
-
-const Score: React.FC<iScoreComponent> = ({ score }) => {
-  let grade = "F";
-  if (score >= 0.9) {
-    grade = "A";
-    return <Text className="text-9xl mb-3 text-blue-500">{grade}</Text>;
-  } else if (score >= 0.8) {
-    grade = "B";
-    return <Text className="text-9xl mb-3 text-blue-400">{grade}</Text>;
-  } else if (score >= 0.7) {
-    grade = "C";
-    return <Text className="text-9xl mb-3 text-red-400">{grade}</Text>;
-  } else if (score >= 0.6) {
-    grade = "D";
-    return <Text className="text-9xl mb-3 text-red-300">{grade}</Text>;
-  }
-  return <Text className="text-9xl mb-3 text-red-600 font-bold">{grade}</Text>;
-};
-
 const App = () => {
   const [gameState, setGameState] = useState<string>(gameStates[0]);
 
@@ -192,52 +173,7 @@ const App = () => {
   return (
     <View className="h-[100%] bg-[#73C4BD]">
       <StatusBar style="light" />
-      {gameState === gameStates[0] && (
-        <>
-          <View className="flex justify-center align-middle pt-12 items-center h-3/6 mx-4">
-            <Text className="text-3xl text-white">K++ Quiz Day</Text>
-            <TouchableOpacity
-              className="bg-sky-950 mt-4 w-full rounded-md shadow h-[15%] flex justify-center"
-              onPress={handleStart}
-            >
-              <Text className=" text-white text-xl text-center">
-                Multiplication
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              className="bg-blue-400 mt-4 w-full rounded-md shadow h-[15%] flex justify-center"
-              activeOpacity={1}
-              onPress={handleStart}
-            >
-              <Text className=" text-white text-xl text-center">Division</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              className="bg-lime-700 mt-4 w-full rounded-md shadow h-[15%] flex justify-center"
-              activeOpacity={1}
-              onPress={handleStart}
-            >
-              <Text className=" text-white text-xl text-center">Addition</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              className="bg-red-950 mt-4 w-full rounded-md h-[15%] flex justify-center"
-              activeOpacity={1}
-              onPress={handleStart}
-            >
-              <Text className=" text-white text-xl text-center ">
-                Subtraction
-              </Text>
-            </TouchableOpacity>
-          </View>
-          <Image
-            source={require("./assets/school.jpg")}
-            className="h-3/6 w-[100%]"
-            // resizeMode="cover"
-          />
-          {/* <View className="absolute bottom-0 border-2 border-black w-[100%] h-[5%]">
-            <Text>Advertisment</Text>
-          </View> */}
-        </>
-      )}
+      {gameState === gameStates[0] && <StartScreen handleStart={handleStart} />}
       {gameState === gameStates[1] && (
         <>
           <View className="flex bg-pink-700 h-[10%] flex-row items-end pb-2">
@@ -266,20 +202,11 @@ const App = () => {
         </>
       )}
       {gameState === gameStates[2] && (
-        <View className="flex justify-center items-center h-full ">
-          <Score score={score / numQuestions} />
-          <Text className="text-2xl mb-3">
-            Score: {score} / {numQuestions}
-          </Text>
-          <TouchableOpacity className="bg-blue-400 w-full mt-7">
-            <Button
-              onPress={handleGoToStart}
-              title="Go To Start"
-              color="white"
-              accessibilityLabel="Learn more about this purple button"
-            />
-          </TouchableOpacity>
-        </View>
+        <ResultsScreen
+          score={score}
+          numQuestions={numQuestions}
+          handleGoToStart={handleGoToStart}
+        />
       )}
     </View>
   );
