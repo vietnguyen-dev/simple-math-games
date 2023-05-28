@@ -41,7 +41,7 @@ const StartScreen: React.FC<iStartPage> = ({ handleStart }) => {
         </TouchableOpacity>
       </View>
       <Image
-        source={require("./../../assets/school.png")}
+        source={require("./../../assets/school.jpg")}
         className="h-3/6 w-[100%]"
       />
     </>
