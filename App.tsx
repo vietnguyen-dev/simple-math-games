@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  Text,
-  View,
-  Button,
-  TouchableOpacity,
-  ImageBackground,
-  Image,
-} from "react-native";
+import { View } from "react-native";
 import { StatusBar } from "expo-status-bar";
 
 import StartScreen from "./components/pages/start";
@@ -19,7 +12,7 @@ NativeWindStyleSheet.setOutput({
   default: "native",
 });
 
-const gameStates = ["Start", "In", "Result"];
+const gameStates = ["Start", "Game", "Result"];
 const numQuestions = 30;
 const numSeconds = 60;
 
@@ -70,18 +63,18 @@ const App = () => {
   const [score, setScore] = useState<number>(0);
   const [question, setQuestion] = useState<number>(0);
 
-  useEffect(() => {
-    let intervalId: NodeJS.Timeout;
-    if (counting && timeLeft > 0) {
-      intervalId = setInterval(() => {
-        setTimeLeft(timeLeft - 1);
-      }, 1000);
-    } else if (timeLeft === 0) {
-      setGameState(gameStates[2]);
-      setCounting(false);
-    }
-    return () => clearInterval(intervalId);
-  }, [counting, timeLeft]);
+  // useEffect(() => {
+  //   let intervalId: NodeJS.Timeout;
+  //   if (counting && timeLeft > 0) {
+  //     intervalId = setInterval(() => {
+  //       setTimeLeft(timeLeft - 1);
+  //     }, 1000);
+  //   } else if (timeLeft === 0) {
+  //     setGameState(gameStates[2]);
+  //     setCounting(false);
+  //   }
+  //   return () => clearInterval(intervalId);
+  // }, [counting, timeLeft]);
 
   const handleStart = () => {
     setGameState(gameStates[1]);
@@ -92,7 +85,16 @@ const App = () => {
     setTimeLeft(numSeconds);
     setScore(0);
     setQuestion(0);
+    setCounting(false);
     setGameState(gameStates[0]);
+  };
+
+  const handleRestart = () => {
+    setTimeLeft(numSeconds);
+    setScore(0);
+    setQuestion(0);
+    setCounting(false);
+    setGameState(gameStates[1]);
   };
 
   const submitAnswer = (answer: number, input: number) => {
@@ -125,6 +127,7 @@ const App = () => {
           score={score}
           numQuestions={numQuestions}
           handleGoToStart={handleGoToStart}
+          handleRestart={handleRestart}
         />
       )}
     </View>

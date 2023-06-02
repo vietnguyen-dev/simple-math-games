@@ -7,12 +7,14 @@ interface iResultsScreen {
   score: number;
   numQuestions: number;
   handleGoToStart: () => void;
+  handleRestart: () => void;
 }
 
 const ResultsScreen: React.FC<iResultsScreen> = ({
   score,
   numQuestions,
   handleGoToStart,
+  handleRestart,
 }) => {
   return (
     <View className="flex justify-center items-center h-full ">
@@ -24,6 +26,14 @@ const ResultsScreen: React.FC<iResultsScreen> = ({
         <Button
           onPress={handleGoToStart}
           title="Go To Start"
+          color="white"
+          accessibilityLabel="Learn more about this purple button"
+        />
+      </TouchableOpacity>
+      <TouchableOpacity className="bg-blue-400 w-full mt-7">
+        <Button
+          onPress={handleRestart}
+          title="Restart"
           color="white"
           accessibilityLabel="Learn more about this purple button"
         />

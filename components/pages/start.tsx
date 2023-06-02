@@ -1,11 +1,38 @@
 import { Text, View, TouchableOpacity, Image } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
+import { Audio } from "expo-av";
 
 interface iStartPage {
   handleStart: () => void;
 }
 
 const StartScreen: React.FC<iStartPage> = ({ handleStart }) => {
+  const [sound, setSound] = React.useState<Audio.Sound | undefined>(undefined);
+
+  useEffect(() => {
+    const play = async () => {
+      console.log("Loading Sound");
+      const { sound } = await Audio.Sound.createAsync(
+        require("../../assets/music/start.mp3")
+      );
+      setSound(sound);
+
+      console.log("Playing Sound");
+      await sound.playAsync();
+    };
+
+    play();
+    // return sound
+    //   ? () => {
+    //       console.log("Unloading Sound");
+    //       sound.unloadAsync();
+    //     }
+    //   : undefined;
+    return () => {
+      sound?.unloadAsync();
+    };
+  }, []);
+
   return (
     <>
       <View className="flex justify-center align-middle pt-12 items-center h-3/6 mx-4">
@@ -18,10 +45,10 @@ const StartScreen: React.FC<iStartPage> = ({ handleStart }) => {
             Multiplication
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           className="bg-blue-400 mt-4 w-full rounded-md shadow h-[15%] flex justify-center"
           activeOpacity={1}
-          onPress={handleStart}
+          onPress={play}
         >
           <Text className=" text-white text-xl text-center">Division</Text>
         </TouchableOpacity>
@@ -38,7 +65,10 @@ const StartScreen: React.FC<iStartPage> = ({ handleStart }) => {
           onPress={handleStart}
         >
           <Text className=" text-white text-xl text-center ">Subtraction</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
+        <Text className="text-white text-xl mt-8">
+          other games coming soon!
+        </Text>
       </View>
       <Image
         source={require("./../../assets/school.jpg")}

@@ -1,9 +1,9 @@
 {
   "expo": {
-    "name": "K++ Math Games",
-    "slug": "mathGames",
-    "description": "Math Game",
-    "version": "1.0.2",
+    "name": "K++ Quiz Day",
+    "slug": "kppQuizDay",
+    "description": "Math Tests for Multiplication, Addition, Subtraction, and Division",
+    "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/math-games-icon.png",
     "userInterfaceStyle": "light",
