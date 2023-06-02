@@ -7,29 +7,38 @@ interface iStartPage {
 }
 
 const StartScreen: React.FC<iStartPage> = ({ handleStart }) => {
-  const [sound, setSound] = React.useState<Audio.Sound | undefined>(undefined);
+  // const play = async () => {
+  //   console.log("Loading Sound");
+  //   const { sound } = await Audio.Sound.createAsync(
+  //     require("../../assets/music/start.mp3")
+  //   );
+  //   setSound(sound);
+
+  //   console.log("Playing Sound");
+  //   await sound.playAsync();
+  // };
 
   useEffect(() => {
-    const play = async () => {
+    let soundObject: Audio.Sound | undefined;
+
+    async function play() {
       console.log("Loading Sound");
       const { sound } = await Audio.Sound.createAsync(
         require("../../assets/music/start.mp3")
       );
-      setSound(sound);
-
+      soundObject = sound;
       console.log("Playing Sound");
       await sound.playAsync();
-    };
-
+    }
     play();
-    // return sound
-    //   ? () => {
-    //       console.log("Unloading Sound");
-    //       sound.unloadAsync();
-    //     }
-    //   : undefined;
     return () => {
-      sound?.unloadAsync();
+      if (soundObject) {
+        console.log("Pausing Sound");
+        soundObject.pauseAsync();
+
+        console.log("Unloading Sound");
+        soundObject.unloadAsync();
+      }
     };
   }, []);
 
@@ -51,8 +60,8 @@ const StartScreen: React.FC<iStartPage> = ({ handleStart }) => {
           onPress={play}
         >
           <Text className=" text-white text-xl text-center">Division</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
+        </TouchableOpacity> */}
+        {/* <TouchableOpacity
           className="bg-lime-700 mt-4 w-full rounded-md shadow h-[15%] flex justify-center"
           activeOpacity={1}
           onPress={handleStart}
