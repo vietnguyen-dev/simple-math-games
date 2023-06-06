@@ -7,17 +7,6 @@ interface iStartPage {
 }
 
 const StartScreen: React.FC<iStartPage> = ({ handleStart }) => {
-  // const play = async () => {
-  //   console.log("Loading Sound");
-  //   const { sound } = await Audio.Sound.createAsync(
-  //     require("../../assets/music/start.mp3")
-  //   );
-  //   setSound(sound);
-
-  //   console.log("Playing Sound");
-  //   await sound.playAsync();
-  // };
-
   useEffect(() => {
     let soundObject: Audio.Sound | undefined;
 

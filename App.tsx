@@ -7,6 +7,7 @@ import GameScreen from "./components/pages/game";
 import ResultsScreen from "./components/pages/results";
 
 import { NativeWindStyleSheet } from "nativewind";
+import { iQuestion } from "./components/ui/questions";
 
 NativeWindStyleSheet.setOutput({
   default: "native",
@@ -52,8 +53,6 @@ const createQuestions = () => {
   return questions;
 };
 
-const questions = createQuestions();
-
 const App = () => {
   const [gameState, setGameState] = useState<string>(gameStates[0]);
 
@@ -62,26 +61,32 @@ const App = () => {
 
   const [score, setScore] = useState<number>(0);
   const [question, setQuestion] = useState<number>(0);
+  const [questions, setQuestions] = useState<iQuestion[] | []>([]);
+  // const questions = createQuestions();
 
-  // useEffect(() => {
-  //   let intervalId: NodeJS.Timeout;
-  //   if (counting && timeLeft > 0) {
-  //     intervalId = setInterval(() => {
-  //       setTimeLeft(timeLeft - 1);
-  //     }, 1000);
-  //   } else if (timeLeft === 0) {
-  //     setGameState(gameStates[2]);
-  //     setCounting(false);
-  //   }
-  //   return () => clearInterval(intervalId);
-  // }, [counting, timeLeft]);
+  useEffect(() => {
+    let intervalId: NodeJS.Timeout;
+    if (counting && timeLeft > 0) {
+      intervalId = setInterval(() => {
+        setTimeLeft(timeLeft - 1);
+      }, 1000);
+    } else if (timeLeft === 0) {
+      setGameState(gameStates[2]);
+      setCounting(false);
+    }
+    return () => clearInterval(intervalId);
+  }, [counting, timeLeft]);
 
   const handleStart = () => {
+    const newQuestions = createQuestions();
+    setQuestions(newQuestions);
     setGameState(gameStates[1]);
     setCounting(true);
   };
 
   const handleGoToStart = () => {
+    const newQuestions = createQuestions();
+    setQuestions(newQuestions);
     setTimeLeft(numSeconds);
     setScore(0);
     setQuestion(0);

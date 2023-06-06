@@ -17,19 +17,24 @@
     ],
     "ios": {
       "supportsTablet": false,
-      "bundleIdentifier": "com.vietnguyendev.mathGames"
-    }, 
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      }
+      "bundleIdentifier": "com.vietnguyendev.kppQuizDay"
     },
-    "web": {
-      "favicon": "./assets/favicon.png"
+    "adaptiveIcon": {
+      "foregroundImage": "./assets/adaptive-icon.png",
+      "backgroundColor": "#ffffff"
     },
     "extra": {
       "eas": {
-        "projectId": "28ddb8ab-7616-4ad7-9eac-4c37896957df"
+        "projectId": "d79eec15-1f3d-4160-8c20-97fc588e7441"
       }
     }
+  },
+  "web": {
+    "favicon": "./assets/favicon.png"
+  },
+  "extra": {
+    "eas": {
+      "projectId": "28ddb8ab-7616-4ad7-9eac-4c37896957df"
+    }
   }
+}
